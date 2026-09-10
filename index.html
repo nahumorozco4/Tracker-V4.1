@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><meta name="description" content="Tracker de ahorro de Genshin Impact">
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="stylesheet" href="styles.css">
+<title>Genshin Impact Tracker</title>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+  <div><small>PROYECTO DE AHORRO • CONTROL DINÁMICO</small><h1>GENSHIN IMPACT<br><span>TRACKER</span></h1></div>
+  <b>✦ <i id="targetTop">TSARITZA</i></b>
+</header>
+
+<section class="target">
+  <div><small>OBJETIVO</small><strong id="targetName">TSARITZA</strong></div>
+  <div>📅 <strong id="targetDate">16 de diciembre de 2026</strong></div>
+</section>
+
+<nav class="tabs" aria-label="Secciones">
+  <button class="tab active" data-tab="resumen">📊 Resumen</button>
+  <button class="tab" data-tab="ingresos">💎 Ingresos</button>
+  <button class="tab" data-tab="historial">📜 Historial</button>
+</nav>
+
+<section id="resumen" class="tab-panel active">
+  <section class="grid stats">
+    <article>💎 PROTOGEMAS<strong id="gems">0</strong></article>
+    <article>🎟️ DESEOS<strong id="wishes">0</strong></article>
+    <article>⭐ PITY<strong id="pity">0/90</strong></article>
+    <article>🎲 PRÓXIMO 5★<strong id="guarantee">50/50</strong></article>
+  </section>
+
+  <section class="card effective"><small>💰 RECURSOS EFECTIVOS</small><strong id="effective">0.0 deseos</strong><p>Deseos + pity + protogemas ÷ 160, según tu sistema.</p></section>
+
+  <section class="card progress">
+    <div class="between"><div><small>PROGRESO HACIA <span id="metaLabel">270</span> DESEOS</small><h2 id="pct">0%</h2></div><div class="days"><b id="days">0</b><small>días</small></div></div>
+    <div class="bar"><span id="bar"></span></div>
+    <div class="between muted"><span id="missingGems">Faltan 0 💎</span><span id="missingWishes">0 deseos</span></div>
+  </section>
+
+  <section class="card quota">
+    <small>🎯 CUOTA DIARIA MATEMÁTICA</small><strong id="quota">0 <span>💎</span></strong>
+    <p id="formula">Restantes ÷ días</p>
+    <div class="three"><div>Cuota base<b id="base">0 💎</b></div><div>Adelanto / déficit<b id="ahead">0 💎</b></div><div>Días adelantados<b id="aheadDays">0.0</b></div></div>
+    <div class="tip">💡 La cuota es una referencia. Los ingresos extraordinarios se registran aparte y bajan la presión real.</div>
+  </section>
+
+  <section class="grid mini">
+    <article>📅 GANADO HOY<strong id="today">0 💎</strong></article>
+    <article>📉 FALTA HOY<strong id="todayMissing">0 💎</strong></article>
+    <article>⭐ FALTA PARA PITY<strong id="pityLeft">90 tiros</strong></article>
+    <article>🛡️ META<strong id="reserve">270 deseos</strong></article>
+  </section>
+
+  <section class="actions">
+    <button class="primary" id="add">✨ Registrar saldo actual</button>
+    <button id="config">⚙️ Configuración</button>
+    <button id="pityBtn">⭐ Actualizar pity</button>
+    <button id="close">📅 Cerrar día</button>
+    <div><button id="export">💾 Exportar</button><button id="import">📥 Importar</button><button class="danger" id="reset">🗑️ Reiniciar</button></div>
+    <input id="file" type="file" accept=".json" hidden>
+  </section>
+</section>
+
+<section id="ingresos" class="tab-panel">
+  <section class="section-head"><div><small>CONTROL DE INGRESOS</small><h2>💎 Fuentes de protogemas</h2></div><button class="primary small" id="addIncome">＋ Registrar ingreso</button></section>
+  <div class="income-grid">
+    <article class="income-card" data-source="daily"><span>📅</span><b>Diarias</b><small>60/día</small><strong id="sum-daily">0 💎</strong></article>
+    <article class="income-card" data-source="abyss"><span>🌌</span><b>Abismo</b><small>por reinicio</small><strong id="sum-abyss">0 💎</strong></article>
+    <article class="income-card" data-source="theater"><span>🎭</span><b>Teatro Imaginario</b><small>por ciclo</small><strong id="sum-theater">0 💎</strong></article>
+    <article class="income-card" data-source="stygian"><span>🔥</span><b>Estigia</b><small>por ciclo</small><strong id="sum-stygian">0 💎</strong></article>
+    <article class="income-card" data-source="events"><span>🎉</span><b>Eventos</b><small>temporales</small><strong id="sum-events">0 💎</strong></article>
+    <article class="income-card" data-source="update"><span>🔄</span><b>Actualización</b><small>mantenimiento/códigos</small><strong id="sum-update">0 💎</strong></article>
+    <article class="income-card" data-source="livestream"><span>📺</span><b>Livestream</b><small>códigos</small><strong id="sum-livestream">0 💎</strong></article>
+    <article class="income-card" data-source="anniversary"><span>🎂</span><b>Aniversario</b><small>recompensas especiales</small><strong id="sum-anniversary">0 💎</strong></article>
+    <article class="income-card" data-source="quests"><span>📖</span><b>Misiones</b><small>historia/secundarias</small><strong id="sum-quests">0 💎</strong></article>
+    <article class="income-card" data-source="exploration"><span>🗺️</span><b>Exploración</b><small>cofres/logros/etc.</small><strong id="sum-exploration">0 💎</strong></article>
+    <article class="income-card" data-source="other"><span>✨</span><b>Otros</b><small>cualquier entrada</small><strong id="sum-other">0 💎</strong></article>
+  </div>
+  <section class="card income-total"><small>TOTAL REGISTRADO EN FUENTES</small><strong id="incomeTotal">0 💎</strong><p>No modifica automáticamente tu saldo: sirve para separar de dónde vienen tus ingresos y evitar duplicarlos.</p></section>
+  <div class="notice">⚠️ <b>Importante:</b> si registras un ingreso aquí y después usas “Registrar saldo actual”, no lo sumes otra vez al saldo manualmente. Esta sección es un control/estimación de fuentes.</div>
+</section>
+
+<section id="historial" class="tab-panel">
+  <div class="between"><div><small>REGISTROS DEL TRACKER</small><h2>📜 Historial</h2></div><button class="link" id="undo">↩️ Deshacer</button><button class="link" id="clear">Limpiar</button></div>
+  <div id="historyList"></div>
+</section>
+
+<footer>💾 Datos guardados localmente • PWA • Funciona sin conexión después de instalarse.</footer>
+</main>
+
+<dialog id="dlg"><form method="dialog" class="modal"><div class="between"><h2 id="mt">Configuración</h2><button type="button" class="x" id="x">×</button></div><div id="mb"></div><div class="modal-actions" id="ma"></div></form></dialog>
+<script src="app.js"></script>
+</body></html>
